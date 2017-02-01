@@ -1,0 +1,24 @@
+@import 'includes/fonts.scss';
+
+@import 'includes/vars.scss';
+
+@import 'includes/reset.scss';
+
+html,
+body{
+	height: 100%;
+	margin: 0;
+}
+
+body{
+	background-color: rgba(236, 240, 241,1.0);
+	font-family: 'Open Sans';
+}
+.btn{
+	cursor: pointer;
+	border: none;
+	background-color: transparent;
+}
+@import 'components/navbar.scss';
+
+@import 'components/topbar.scss';
