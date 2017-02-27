@@ -1,6 +1,7 @@
 .layout__navbar{
 	background-color: $navbar-color;
-	width: 250px;
+	width: 18vw;
+	// min-width: 190px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -40,15 +41,15 @@
 .user-panel_head{
 	padding: 15px 0;
 	margin: 0 12px;
-}
-.user-panel_head{
 	display: flex;
+	box-sizing: inherit;
 }
 .user-panel__avatar{
 	width: 35px;
 	height: 35px;
 	border-radius: 50%;
 	margin: 5px 10px 5px 0;
+	box-sizing: inherit;
 	& img{
 		display: block;
 		width: 100%;
@@ -74,7 +75,8 @@
 .user-panel__side{
 	display: flex;
 	align-items: center;
-	width: calc(100% - 37px);
+	width: calc(100% - 47px);
+	box-sizing: inherit;
 }
 .btn-dropdown{
 	height: 30px;

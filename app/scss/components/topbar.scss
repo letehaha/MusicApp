@@ -5,10 +5,11 @@
 	right: 0;
 	top: 0;
 	background-color: $navbar-color;
-	width: calc(100% - 250px);
+	width: calc(100% - #{$navbar-width});
 }
 .search{
 	position: relative;
+	display: inline-block;
 	&__title{
 		margin: 0;
 		position: absolute;

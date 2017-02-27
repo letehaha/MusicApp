@@ -9,6 +9,10 @@
 ol, ul{
   list-style-type: none;
 }
+ol, ul, li{
+  margin: 0;
+  padding: 0;
+}
 html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -111,6 +115,7 @@ select,
 textarea {
   font: inherit; /* 1 */
   margin: 0; /* 2 */
+  padding: 0;
 }
 
 button,

@@ -19,6 +19,17 @@ body{
 	border: none;
 	background-color: transparent;
 }
+.layout{
+	padding: 70px 0 0 $navbar-width;
+}
+.content{
+	padding: 25px;
+}
+
+
+
 @import 'components/navbar.scss';
 
 @import 'components/topbar.scss';
+
+@import 'components/song-list.scss';

@@ -1,0 +1,65 @@
+.song-item{
+	display: flex;
+	justify-content: space-between;
+	color: #333;
+	padding: 10px;
+	line-height: 30px;
+	&:not(:last-child){
+		border-bottom: 1px solid #ccc;
+	}
+	.play{
+		width: 40px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.add{
+		cursor: pointer;
+		width: 40px;
+		text-align: center;
+	}
+	.song{
+		width: calc((100% - 160px)/3);
+		overflow: hidden;
+		white-space: nowrap;
+		margin: 0 20px;
+		font-size: 13px;
+		text-overflow: ellipsis;
+	}
+	.artist{
+		width: calc((100% - 160px)/3);
+		overflow: hidden;
+		white-space: nowrap;
+		margin: 0 20px;
+		font-size: 13px;
+		text-overflow: ellipsis;
+	}
+	.album{
+		width: calc((100% - 160px)/3);
+		overflow: hidden;
+		white-space: nowrap;
+		margin: 0 20px;
+		font-size: 13px;
+		text-overflow: ellipsis;
+	}
+	.time{
+		width: 40px;
+		text-align: center;
+		font-size: 13px;
+	}
+	.more{
+		width: 40px;
+		text-align: center;
+	}
+}
+.song-item_btn{
+	width: 40px;
+	text-align: center;
+	font-size: 13px;
+}
+.song-item__link{
+	color: #333;
+	border-bottom: 1px solid transparent;
+	&:hover{
+		border-color: #333;
+	}
+}
