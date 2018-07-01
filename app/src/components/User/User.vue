@@ -29,7 +29,14 @@ export default {
   },
   methods: {
     login () {
-      axios.get(`${config.SERVER}/login`)
+      axios({
+        method: 'get',
+        url: `${config.SERVER}/login`,
+        headers: {
+          'Access-Control-Allow-Origin': 'http://localhost:8888',
+          'Access-Control-Allow-Origin': 'http://localhost:8888'
+        }
+      })
         .then(response => {
           console.log(response)
         })

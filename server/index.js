@@ -23,31 +23,39 @@ function generateRandomString (length) {
   return text
 }
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested With, Content-Type, Accept');
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8888')
+  // Request methods you wish to allow
+  // res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+  // // Request headers you wish to allow
+  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  // // Set to true if you need the website to include cookies in the requests sent
+  // // to the API (e.g. in case you use sessions)
+  // res.header('Access-Control-Allow-Credentials', true)
   next();
-})
+});
 app.use(cors())
 app.use(cookieParser())
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.get('/login', function(req, res) {
-  client_redirect = req.headers.origin
+  // client_redirect = req.headers.origin
   const state = generateRandomString(16)
   const scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public user-read-birthdate user-read-currently-playing user-read-playback-state'
   res.cookie(stateKey, state)
+  console.log(res.he)
 
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
-    response_type: 'code',
-    client_id: client_id,
-    scope: scope,
-    redirect_uri: redirect_uri,
-    state: state
-  }))
+      response_type: 'code',
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    })
+  )
 })
 
 app.get('/callback', function(req, res) {
