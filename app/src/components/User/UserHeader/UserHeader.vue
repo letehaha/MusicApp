@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <md-app-toolbar class="md-primary">
     <logotype/>
-  </div>
+  </md-app-toolbar>
 </template>
 
 <script>

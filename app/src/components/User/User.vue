@@ -1,25 +1,30 @@
 <template>
-  <div>
-    <user-header/>
-    <div class="app__content">
-      <sidebar/>
+  <md-app class="page-container" md-waterfall md-mode="fixed">
+    <md-app-toolbar class="md-primary">
+      <user-header/>
+    </md-app-toolbar>
+
+    <md-app-drawer md-permanent="full" class="user__sidebar">
+      <user-sidebar/>
+    </md-app-drawer>
+
+    <md-app-content>
       <button @click="login">Spotify login</button>
-      Hello, User
-    </div>
-  </div>
+    </md-app-content>
+  </md-app>
 </template>
 
 <script>
 import axios from 'axios'
 import config from '../../config'
 
-import Sidebar from './navigation/Sidebar'
+import UserSidebar from './navigation/UserSidebar'
 import UserHeader from './UserHeader/UserHeader'
 
 export default {
   name: 'User',
   components: {
-    Sidebar,
+    UserSidebar,
     UserHeader
   },
   data () {
@@ -29,14 +34,7 @@ export default {
   },
   methods: {
     login () {
-      axios({
-        method: 'get',
-        url: `${config.SERVER}/login`,
-        headers: {
-          'Access-Control-Allow-Origin': 'http://localhost:8888',
-          'Access-Control-Allow-Origin': 'http://localhost:8888'
-        }
-      })
+      axios.get(`${config.SERVER}/login`)
         .then(response => {
           console.log(response)
         })
@@ -49,5 +47,13 @@ export default {
 </script>
 
 <style>
+
+  .page-container {
+    min-height: 100vh;
+  }
+
+  .user__sidebar {
+    width: 250px;
+  }
 
 </style>

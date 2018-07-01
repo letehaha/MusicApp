@@ -25,27 +25,29 @@ function generateRandomString (length) {
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8888')
+  res.header('Access-Control-Allow-Origin', '*')
   // Request methods you wish to allow
-  // res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-  // // Request headers you wish to allow
-  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  // // Set to true if you need the website to include cookies in the requests sent
-  // // to the API (e.g. in case you use sessions)
-  // res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+  // Request headers you wish to allow
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.header('Access-Control-Allow-Credentials', true)
   next();
 });
-app.use(cors())
-app.use(cookieParser())
+app.use(express.static(__dirname + '/public'))
+   .use(cors())
+   .use(cookieParser())
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.get('/login', function(req, res) {
-  // client_redirect = req.headers.origin
+  client_redirect = req.headers.origin
   const state = generateRandomString(16)
-  const scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public user-read-birthdate user-read-currently-playing user-read-playback-state'
+  const scope = `user-read-private user-read-email playlist-modify-private 
+                 playlist-modify-public user-read-birthdate user-read-currently-playing 
+                 user-read-playback-state`
   res.cookie(stateKey, state)
-  console.log(res.he)
 
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
@@ -88,21 +90,31 @@ app.get('/callback', function(req, res) {
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
 
-        const access_token = body.access_token
-        const refresh_token = body.refresh_token
+        var access_token = body.access_token,
+            refresh_token = body.refresh_token;
 
-        const options = {
+        var options = {
           url: 'https://api.spotify.com/v1/me',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
-        }
+        };
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body)
-        })
+          console.log(body);
+        });
 
-        res.redirect(client_redirect) // redirect after succefull auth to client rout
+        // we can also pass the token to the browser to make requests from there
+        res.redirect('http://localhost:8080/#' +
+          querystring.stringify({
+            access_token: access_token,
+            refresh_token: refresh_token
+          }));
+      } else {
+        res.redirect('/#' +
+          querystring.stringify({
+            error: 'invalid_token'
+          }));
       }
     })
   }
